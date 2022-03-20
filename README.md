@@ -27,9 +27,7 @@ Their theories are actually very similar to what I was aiming for, therefore I b
 
 For this prototype, I did not give out any instructions and wanted to let the player explore by using their intuition. The only sort of instruction they were getting was the button to not take their pills. Most of my playtesters thought the gameplay was self-explanatory, but weren’t sure what to do next, mostly because the prototype was not completed and did not have a definite end-goal. Some of my playtesters mentioned showing the controls scheme and having some sort of simple indication to where the player should go next. I think by adding some arrows or in-game elements such as road signs that act as instruction will be beneficial in my case. 
 
-Overall, the playtesters enjoyed the overall environment and ambience of my prototype. I was afraid that the opacity would’ve been too low, but my playtesters reassured me that the brightness was at a good level and fit well with the narrative.
-
-The major recurring issue was the button not being responsive at times and the hover/click effect was not as noticeable and the text being too small to read. 
+Overall, the playtesters enjoyed the overall environment and ambience of my prototype. I was afraid that the opacity would’ve been too low, but my playtesters reassured me that the brightness was at a good level and fit well with the narrative.The major recurring issue was the button not being responsive at times and the hover/click effect was not as noticeable and the text being too small to read. 
 
 Here are some suggestions provided by my playtesters:
 - Providing an option to take the pills
