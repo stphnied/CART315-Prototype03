@@ -1,6 +1,32 @@
-# Prototype 03
+# Prototype 03 (Revised)
 
 ### Design Hypothesis
+
+_How can I further elaborate on my narrative prototype to give the illusion of agency to the player?_
+
+My preceding prototype consisted of working around visual and sound effects to create the core gameplay. Based on my previous playtesters’ responses, I wanted to add further interactive options for the player to let them explore the narrative world.  In this prototype, the player can now “choose” to consume their pills or not and interact with monsters. By interacting with the monsters, they will have a broader sense of the backstory of the game. I also added the game controls at the beginning to ease them into the game. Although the player is given choices, this will not affect the gameplay as it does not diverge the storyline. 
+
+**Changes implemented:**
+- Dialogues
+- Options
+- More SFX
+- Game Controls display
+
+**Questions:**
+1. Were you able to grasp the general story of the game so far?
+2. Although there is an option to take pills, the main character forgot to bring them. Do you think there should still be an option for them to regain sanity? (i.e by 3. staying under the lamp post for x amount of time)
+4. How do you feel about the game pacing? Is it too slow/fast or just right?
+5. Did you encounter any issues?
+6. Any comments or recommendations to improve my game? :>
+
+
+---
+
+# Prototype 03 (Original)
+
+### Design Hypothesis
+
+_Can I push a narrative to a game only by making use of visual and sound effect aspects?_
 
 For the last prototype, I explored the PostProcessing render effects in a 2D world. I wanted to set up a spooky ambience to create an atmospheric game environment by combining visual and sound effects. In addition, I tried implementing different states in the games that are triggered by the player. 
 
