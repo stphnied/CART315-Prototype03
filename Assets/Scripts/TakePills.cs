@@ -14,7 +14,7 @@ public class TakePills : MonoBehaviour
     {
         Button btn = yourButton.GetComponent<Button>();
 		btn.onClick.AddListener(TaskOnClick);
-        Invoke("AskQuestion",4f);
+        Invoke("AskQuestion",10f);
     }
 
     void TaskOnClick() {

@@ -10,6 +10,7 @@ public class SanityLvl : MonoBehaviour
     public float sanityLvl;
     public GameObject Pills;
     public Canvas canvasMonster;
+    public GameObject monsterTrigger;
     GameObject[] monsterArray;
     
 
@@ -49,7 +50,8 @@ public class SanityLvl : MonoBehaviour
         if(sanityLvl<=0) {
             colorParameter.value = Color.magenta;
             bloom.color.Override(colorParameter);
-            canvasMonster.gameObject.SetActive(true);
+            // canvasMonster.gameObject.SetActive(true);
+            monsterTrigger.gameObject.SetActive(true);
         }
 
         // Not insane ==> Regular color
