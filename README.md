@@ -14,10 +14,10 @@ My preceding prototype consisted of working around visual and sound effects to c
 
 **Questions:**
 1. Were you able to grasp the general story of the game so far?
-2. Although there is an option to take pills, the main character forgot to bring them. Do you think there should still be an option for them to regain sanity? (i.e by 3. staying under the lamp post for x amount of time)
-4. How do you feel about the game pacing? Is it too slow/fast or just right?
-5. Did you encounter any issues?
-6. Any comments or recommendations to improve my game? :>
+2. Although there is an option to take pills, the main character forgot to bring them. Do you think there should still be an option for them to regain sanity? (i.e by staying under the lamp post for x amount of time)
+3. How do you feel about the game pacing? Is it too slow/fast or just right?
+4. Did you encounter any issues?
+5. Any comments or recommendations to improve my game? :>
 
 
 ---
