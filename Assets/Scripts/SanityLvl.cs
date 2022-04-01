@@ -11,15 +11,18 @@ public class SanityLvl : MonoBehaviour
     public GameObject Pills;
     public Canvas canvasMonster;
     public GameObject monsterTrigger;
+    SpriteRenderer sprite;
     GameObject[] monsterArray;
+    float colorAlpha = 0f;
     
 
     void Start() {
-       
+        // Find all monsters 
         monsterArray = GameObject.FindGameObjectsWithTag ("Monster");
         foreach(GameObject monster in monsterArray)
             {
                 monster.SetActive(false);
+                sprite = monster.GetComponent<SpriteRenderer>();
             }
     }
 
@@ -41,6 +44,12 @@ public class SanityLvl : MonoBehaviour
         if (sanityLvl <=50) {
             foreach(GameObject monster in monsterArray)
             {
+                if(colorAlpha < 0.8f) {
+                    colorAlpha += 0.2f;
+                }
+                else {colorAlpha = 0.8f;}
+                
+                monster.GetComponent<SpriteRenderer>().color = new Color (0.32f,0.32f,0.32f,colorAlpha);
                 monster.SetActive(true);
             }
         }
@@ -50,8 +59,13 @@ public class SanityLvl : MonoBehaviour
         if(sanityLvl<=0) {
             colorParameter.value = Color.magenta;
             bloom.color.Override(colorParameter);
-            // canvasMonster.gameObject.SetActive(true);
             monsterTrigger.gameObject.SetActive(true);
+
+            foreach(GameObject monster in monsterArray)
+            {
+                monster.GetComponent<SpriteRenderer>().color = new Color (0.63f,0.36f,1f,1f);
+                monster.SetActive(true);
+            }
         }
 
         // Not insane ==> Regular color
@@ -59,5 +73,10 @@ public class SanityLvl : MonoBehaviour
             colorParameter.value = new Color(0.06172125f, 0.06631926f, 0.1792453f);
             bloom.color.Override(colorParameter);
         }
+    }
+
+    public void regainSanity(int value=25) {
+        sanityLvl+=value;
+        fillBar.fillAmount = sanityLvl/100;
     }
 }

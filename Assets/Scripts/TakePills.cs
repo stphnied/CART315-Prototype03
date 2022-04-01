@@ -22,22 +22,18 @@ public class TakePills : MonoBehaviour
         yesButton.onClick.AddListener(yesBtnTask);
         Invoke("AskQuestion",7f);
     }
-
-    void TaskOnClick() {
-        currentCount++;
-        Pills.gameObject.SetActive(false);
-        Invoke("AskQuestion",5f);
-    }
-
+    
     void AskQuestion() {
         if(currentCount < 4) {
             Pills.gameObject.SetActive(true);
+            player.GetComponent<Move>().speed = 0f;
         }
     }
 
     void noBtnTask() {
         currentCount++;
         Pills.gameObject.SetActive(false);
+        player.GetComponent<Move>().speed = 5f;
         Invoke("AskQuestion",5f);
     }
 

@@ -7,6 +7,8 @@ TagManager:
   - Monster
   - MT1
   - MT2
+  - Light
+  - MT3
   layers:
   - Default
   - TransparentFX

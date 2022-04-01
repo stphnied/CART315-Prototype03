@@ -4,19 +4,13 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 
-
 {
     public Transform target;
     public Vector3 offset;
     public Vector3 minVal, maxVal;
+    public GameObject stairways;
+    public bool isUpstairs = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         Follow();
@@ -27,13 +21,22 @@ public class CameraFollow : MonoBehaviour
         // Player position
         Vector3 targetPos = target.position+offset;
 
-        // Sets camera bound
-        Vector3 camBoundPos = new Vector3(Mathf.Clamp(targetPos.x,minVal.x,maxVal.x),0f,Mathf.Clamp(targetPos.z,minVal.z,maxVal.z));
+        // Moves The camera up when going upstairs
+        if(isUpstairs) {
+            offset.y += 0.02f;
+            if(offset.y >= 2.85f) {
+                offset.y = 2.85f;
+            }
+        }
+        else {
+            offset.y -= 0.02f;
+            if(offset.y <=0f) {
+                offset.y = 0f;
+            }
+        }
 
-        // sets the camera position
-        Vector3 setPosition = transform.position;
-        setPosition.x = target.transform.position.x + offset.x;
-        setPosition.z = target.transform.position.z + offset.z;
+        // Sets camera bound
+        Vector3 camBoundPos = new Vector3(Mathf.Clamp(targetPos.x,minVal.x,maxVal.x),offset.y,Mathf.Clamp(targetPos.z,minVal.z,maxVal.z));
         transform.position = camBoundPos;
     }
     
