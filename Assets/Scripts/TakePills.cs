@@ -11,13 +11,13 @@ public class TakePills : MonoBehaviour
     public GameObject ConvoBox;
     public GameObject Pills;
     public Button noButton, yesButton;
-    GameObject player;
+    public GameObject player;
     Rigidbody rigidB;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("punpun");
+        // player = GameObject.Find("punpun");
         noButton.onClick.AddListener(noBtnTask);
         yesButton.onClick.AddListener(yesBtnTask);
         Invoke("AskQuestion",7f);
@@ -43,7 +43,7 @@ public class TakePills : MonoBehaviour
         rt.localPosition = new Vector3(player.transform.position.x,0f,player.transform.position.x);
         currentCount++;
         Pills.gameObject.SetActive(false);
-        player.GetComponent<Move>().speed = 0f;
+        player.GetComponent<Move>().speed = 5f;
         Invoke("AskQuestion",10f);
         
     }

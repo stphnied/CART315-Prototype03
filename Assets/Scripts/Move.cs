@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using DialogueEditor;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
  
 public class Move : MonoBehaviour {
  
@@ -19,11 +20,15 @@ public class Move : MonoBehaviour {
     private SpriteRenderer _renderer;
     Animator _animator;
     Rigidbody2D rb;
+    Light lt;
+    GameObject lightPower;
+    GameObject [] lightsArray;
  
     void Start () {
         _animator = gameObject.GetComponent<Animator>();
         _renderer = GetComponent<SpriteRenderer>();
         rb = GetComponent <Rigidbody2D> ();
+        lt = GetComponent<Light>();
     }
  
     void Update () {
@@ -97,11 +102,14 @@ public class Move : MonoBehaviour {
             if(Cam.GetComponent<SanityLvl>().sanityLvl >= 0f && Cam.GetComponent<SanityLvl>().sanityLvl <= 75f ) {
                 Cam.GetComponent<SanityLvl>().sanityLvl += 25;
                 Cam.GetComponent<SanityLvl>().fillBar.fillAmount += Cam.GetComponent<SanityLvl>().sanityLvl/100 + 0.25f;
-                Debug.Log(Cam.GetComponent<SanityLvl>().sanityLvl);
+                // Debug.Log(Cam.GetComponent<SanityLvl>().sanityLvl);
             }
             if (Cam.GetComponent<SanityLvl>().sanityLvl == 100) {
                 Cam.GetComponent<SanityLvl>().sanityLvl = 100f;
             }
+            lightPower = GameObject.Find("LightPower");
+            lightPower.GetComponent<Light>().color =  new Color(0.8f,0.5f,0.07f);
+            Destroy(col.gameObject,1f);
 
         }
     }

@@ -28,7 +28,7 @@ public class CameraFollow : MonoBehaviour
                 offset.y = 2.85f;
             }
         }
-        else {
+        else if(!isUpstairs) {
             offset.y -= 0.02f;
             if(offset.y <=0f) {
                 offset.y = 0f;

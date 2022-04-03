@@ -13,6 +13,7 @@ public class SanityLvl : MonoBehaviour
     public GameObject monsterTrigger;
     SpriteRenderer sprite;
     GameObject[] monsterArray;
+    GameObject [] lightsArray;
     float colorAlpha = 0f;
     
 
@@ -51,7 +52,18 @@ public class SanityLvl : MonoBehaviour
                 
                 monster.GetComponent<SpriteRenderer>().color = new Color (0.32f,0.32f,0.32f,colorAlpha);
                 monster.SetActive(true);
+
+               
             }
+        }
+
+        if (sanityLvl <=25) {
+                // Lights
+                lightsArray = GameObject.FindGameObjectsWithTag ("Light");
+                 foreach(GameObject light in lightsArray)
+                {
+                    light.GetComponent<LightFlickering>().enabled = true;
+                }
         }
 
         // If sanity lvl reaches 0 ==> INSANE
