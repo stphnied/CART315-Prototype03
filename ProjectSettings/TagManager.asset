@@ -9,6 +9,7 @@ TagManager:
   - MT2
   - Light
   - MT3
+  - MT4
   layers:
   - Default
   - TransparentFX

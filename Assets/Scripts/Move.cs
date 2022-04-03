@@ -12,23 +12,31 @@ public class Move : MonoBehaviour {
     public GameObject M1;
     public GameObject M2;
     public GameObject M3;
+    public GameObject M4;
+    public GameObject M5;
     public GameObject ScreenBoundTxt;
     public NPCConversation myConvo;
+    public NPCConversation BlockingStairs;
+    public NPCConversation DizzyStairs;
     public GameObject ConvoBox;
     public GameObject stairways;
+    public GameObject lightTrigger;
     public GameObject Cam;
     private SpriteRenderer _renderer;
     Animator _animator;
     Rigidbody2D rb;
     Light lt;
     GameObject lightPower;
-    GameObject [] lightsArray;
+    float tryingUp = 0f;
+    public bool isNormal = false;
  
     void Start () {
         _animator = gameObject.GetComponent<Animator>();
         _renderer = GetComponent<SpriteRenderer>();
         rb = GetComponent <Rigidbody2D> ();
         lt = GetComponent<Light>();
+        lightPower = GameObject.Find("LightPower");
+        isNormal = false;
     }
  
     void Update () {
@@ -56,14 +64,21 @@ public class Move : MonoBehaviour {
         _animator.SetFloat("Speed",Mathf.Abs(x));
         transform.position += new Vector3 (x,0f,0f) * Time.deltaTime * speed;
 
+        // Close control panel
         if(Input.anyKey) {
-            Invoke("CloseControls",2f); 
+            Invoke("CloseControls",3f); 
         }
     }
 
     // Hides controls after player moves
     void CloseControls () {
         controls.gameObject.SetActive(false);
+    }
+
+    // Displays different light  color
+    public void regainSanity() {
+        lightPower.GetComponent<Light>().color =  new Color(0.5f,0.76f,0.099f);
+        lightTrigger.SetActive(true);
     }
 
     // When the player is within a range --> triggers a convo
@@ -79,10 +94,22 @@ public class Move : MonoBehaviour {
              M2.gameObject.SetActive(true);
         }
 
+        // 3rd
         else if (col.gameObject.tag == "MT3") {
+            RectTransform rt = ConvoBox.GetComponent<RectTransform>();
+            rt.localPosition = new Vector3(25.67f,-0.77f,0f);
             M3.gameObject.SetActive(true);
         }
 
+        // 4th
+        else if (col.gameObject.name == "MonsterT4") {
+            M4.gameObject.SetActive(true);
+        }
+
+        // 5th
+        else if (col.gameObject.name == "MonsterT5") {
+            M5.gameObject.SetActive(true);
+        }
 
         // WITHIN SCREEN BOUND RANGE
         else if (col.gameObject == ScreenBoundTxt) {
@@ -93,24 +120,25 @@ public class Move : MonoBehaviour {
             this.GetComponent<Move>().speed =0f;
         }
 
+        // WHEN GOING UP
         if(col.gameObject == stairways) {
             Cam.GetComponent<CameraFollow>().isUpstairs = true;
             Debug.Log("UP WE GO");
         }
 
-        if(col.gameObject.tag == "Light") {
+        // REGAIN SANITY UNDER ONE LIGHT
+        if(col.gameObject.name == "LightSanity") {
             if(Cam.GetComponent<SanityLvl>().sanityLvl >= 0f && Cam.GetComponent<SanityLvl>().sanityLvl <= 75f ) {
                 Cam.GetComponent<SanityLvl>().sanityLvl += 25;
                 Cam.GetComponent<SanityLvl>().fillBar.fillAmount += Cam.GetComponent<SanityLvl>().sanityLvl/100 + 0.25f;
-                // Debug.Log(Cam.GetComponent<SanityLvl>().sanityLvl);
             }
+
             if (Cam.GetComponent<SanityLvl>().sanityLvl == 100) {
                 Cam.GetComponent<SanityLvl>().sanityLvl = 100f;
             }
-            lightPower = GameObject.Find("LightPower");
-            lightPower.GetComponent<Light>().color =  new Color(0.8f,0.5f,0.07f);
-            Destroy(col.gameObject,1f);
 
+            Invoke("IncreaseSanityLight",2f);
+            Destroy(col.gameObject,2f);
         }
     }
 
@@ -120,7 +148,43 @@ public class Move : MonoBehaviour {
         M1.gameObject.SetActive(false);
         M2.gameObject.SetActive(false);
         M3.gameObject.SetActive(false);
+        M4.gameObject.SetActive(false);
+        M5.gameObject.SetActive(false);
         Cam.GetComponent<CameraFollow>().isUpstairs = false;
     }
 
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        // Blocking the stairs if punpun sanity is low
+        if(col.gameObject.name == "BlockStairs") {
+            ConversationManager.Instance.StartConversation(BlockingStairs);
+            RectTransform rt = ConvoBox.GetComponent<RectTransform>();
+            rt.localPosition = new Vector3(66.51f,-0.77f,0f);
+            this.GetComponent<Move>().speed =0f;
+            tryingUp++;
+            Debug.Log("hi");
+
+            if(tryingUp >=3) {
+            ConversationManager.Instance.StartConversation(DizzyStairs);
+            rt.localPosition = new Vector3(66.51f,-0.77f,0f);
+            this.GetComponent<Move>().speed =0f;
+            Destroy(col.gameObject,1f);
+            }
+        }
+    }
+
+    //Resets everything back to normal 
+    public void IncreaseSanityLight() {
+        Cam.GetComponent<SanityLvl>().sanityLvl = 100f;
+        Cam.GetComponent<SanityLvl>().fillBar.fillAmount += Cam.GetComponent<SanityLvl>().sanityLvl = 1f;
+        Cam.GetComponent<SanityLvl>().resetNormal();
+
+        lightPower.GetComponent<Light>().color =  new Color(0.8f,0.5f,0.07f);
+        isNormal = true;
+        
+        GameObject stairs = GameObject.Find("BlockStairs");
+        stairs.SetActive(false);
+    }
 }
+
+

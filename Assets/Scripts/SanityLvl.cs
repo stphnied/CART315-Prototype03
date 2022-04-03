@@ -14,6 +14,8 @@ public class SanityLvl : MonoBehaviour
     SpriteRenderer sprite;
     GameObject[] monsterArray;
     GameObject [] lightsArray;
+    GameObject blockStairs;
+    GameObject player;
     float colorAlpha = 0f;
     
 
@@ -25,6 +27,10 @@ public class SanityLvl : MonoBehaviour
                 monster.SetActive(false);
                 sprite = monster.GetComponent<SpriteRenderer>();
             }
+        blockStairs= GameObject.Find("BlockStairs");
+        blockStairs.SetActive(false);
+
+        player = GameObject.Find("punpun");
     }
 
     public void LoseSanity(int value=25) {
@@ -41,7 +47,9 @@ public class SanityLvl : MonoBehaviour
         Pills.gameObject.SetActive(false);
 
 
-        // Half sanity --> SEE MONSTERS
+        // Sanity 50% = SEES MONSTERS
+        // Too unstable to walk upstairs
+
         if (sanityLvl <=50) {
             foreach(GameObject monster in monsterArray)
             {
@@ -51,12 +59,13 @@ public class SanityLvl : MonoBehaviour
                 else {colorAlpha = 0.8f;}
                 
                 monster.GetComponent<SpriteRenderer>().color = new Color (0.32f,0.32f,0.32f,colorAlpha);
-                monster.SetActive(true);
-
-               
+                monster.SetActive(true);     
             }
+            blockStairs.SetActive(true);
         }
 
+        // Sanity at 25%
+        // Street lamps start flickering
         if (sanityLvl <=25) {
                 // Lights
                 lightsArray = GameObject.FindGameObjectsWithTag ("Light");
@@ -66,8 +75,9 @@ public class SanityLvl : MonoBehaviour
                 }
         }
 
-        // If sanity lvl reaches 0 ==> INSANE
+        // Sanity at 0%
         // Changes vignette color
+        // NIGHTMARE MODE
         if(sanityLvl<=0) {
             colorParameter.value = Color.magenta;
             bloom.color.Override(colorParameter);
@@ -80,15 +90,39 @@ public class SanityLvl : MonoBehaviour
             }
         }
 
-        // Not insane ==> Regular color
+        // Not insane = resets everything to normal
         else {
             colorParameter.value = new Color(0.06172125f, 0.06631926f, 0.1792453f);
             bloom.color.Override(colorParameter);
         }
+        
     }
 
-    public void regainSanity(int value=25) {
-        sanityLvl+=value;
-        fillBar.fillAmount = sanityLvl/100;
-    }
+    // public void regainSanity() {
+    //     // sanityLvl+=value;
+    //     // fillBar.fillAmount = sanityLvl/100;
+    //     lightPower = GameObject.Find("LightPower");
+    //     lightPower.GetComponent<Light>().color =  new Color(0.8f,0.5f,0.07f);
+    // }
+
+    public void resetNormal() {
+                // Reset PP
+        var postProcessVolume = GameObject.FindObjectOfType<UnityEngine.Rendering.PostProcessing.PostProcessVolume>();
+        Vignette bloom = postProcessVolume.profile.GetSetting<UnityEngine.Rendering.PostProcessing.Vignette>();
+        var colorParameter = new UnityEngine.Rendering.PostProcessing.ColorParameter();
+        colorParameter.value = new Color(0.06172125f, 0.06631926f, 0.1792453f);
+        bloom.color.Override(colorParameter);
+
+        foreach(GameObject monster in monsterArray)
+        {
+            monster.SetActive(false);
+            monsterTrigger.gameObject.SetActive(false);
+        }
+        // Lights
+        lightsArray = GameObject.FindGameObjectsWithTag ("Light");
+        foreach(GameObject light in lightsArray)
+        {
+            light.GetComponent<LightFlickering>().enabled = false;
+        }
+    } 
 }
