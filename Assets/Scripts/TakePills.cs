@@ -17,7 +17,6 @@ public class TakePills : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // player = GameObject.Find("punpun");
         noButton.onClick.AddListener(noBtnTask);
         yesButton.onClick.AddListener(yesBtnTask);
         Invoke("AskQuestion",7f);

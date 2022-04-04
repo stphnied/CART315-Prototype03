@@ -49,11 +49,8 @@ public class MomState : MonoBehaviour
 
     public void Ending() {
         punpun.SetActive(false);
-        
-        // Destroy(gameObject,5f);
-        Debug.Log("the end");
 
-        if(Cam.GetComponent<SanityLvl>().sanityLvl >= 75f ) {
+        if(Cam.GetComponent<SanityLvl>().sanityLvl ==1f ) {
             SceneManager.LoadScene(4);  
         }
         else {

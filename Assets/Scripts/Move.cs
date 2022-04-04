@@ -186,8 +186,6 @@ public class Move : MonoBehaviour {
             else if (Cam.GetComponent<SanityLvl>().sanityLvl != 1f) {
                 ConversationManager.Instance.StartConversation(badMomConvo);
             }
-
-            Debug.Log(Cam.GetComponent<SanityLvl>().sanityLvl);
         }
     }
 
