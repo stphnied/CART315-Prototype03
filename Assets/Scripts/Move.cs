@@ -18,6 +18,8 @@ public class Move : MonoBehaviour {
     public NPCConversation myConvo;
     public NPCConversation BlockingStairs;
     public NPCConversation DizzyStairs;
+    public NPCConversation goodMomConvo;
+    public NPCConversation badMomConvo;
     public GameObject ConvoBox;
     public GameObject stairways;
     public GameObject lightTrigger;
@@ -123,7 +125,6 @@ public class Move : MonoBehaviour {
         // WHEN GOING UP
         if(col.gameObject == stairways) {
             Cam.GetComponent<CameraFollow>().isUpstairs = true;
-            Debug.Log("UP WE GO");
         }
 
         // REGAIN SANITY UNDER ONE LIGHT
@@ -162,14 +163,31 @@ public class Move : MonoBehaviour {
             rt.localPosition = new Vector3(66.51f,-0.77f,0f);
             this.GetComponent<Move>().speed =0f;
             tryingUp++;
-            Debug.Log("hi");
 
+            // If punpun tries more than 3 times --> bad ending
             if(tryingUp >=3) {
             ConversationManager.Instance.StartConversation(DizzyStairs);
             rt.localPosition = new Vector3(66.51f,-0.77f,0f);
             this.GetComponent<Move>().speed =0f;
             Destroy(col.gameObject,1f);
             }
+        }
+
+        if(col.gameObject.name == "mother") {
+            RectTransform rt = ConvoBox.GetComponent<RectTransform>();
+            rt.localPosition = new Vector3(80.02f,4.54f,0f);
+            this.GetComponent<Move>().speed =0f;
+            
+            // Good Sanity Lvl
+            if (Cam.GetComponent<SanityLvl>().sanityLvl ==1f) {
+                ConversationManager.Instance.StartConversation(goodMomConvo);
+            }
+            // Bad Sanity Lvl
+            else if (Cam.GetComponent<SanityLvl>().sanityLvl != 1f) {
+                ConversationManager.Instance.StartConversation(badMomConvo);
+            }
+
+            Debug.Log(Cam.GetComponent<SanityLvl>().sanityLvl);
         }
     }
 

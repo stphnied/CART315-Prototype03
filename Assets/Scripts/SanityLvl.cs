@@ -9,6 +9,8 @@ public class SanityLvl : MonoBehaviour
     public Image fillBar;
     public float sanityLvl;
     public GameObject Pills;
+    public GameObject house;
+    public GameObject mother;
     public Canvas canvasMonster;
     public GameObject monsterTrigger;
     SpriteRenderer sprite;
@@ -49,7 +51,6 @@ public class SanityLvl : MonoBehaviour
 
         // Sanity 50% = SEES MONSTERS
         // Too unstable to walk upstairs
-
         if (sanityLvl <=50) {
             foreach(GameObject monster in monsterArray)
             {
@@ -62,16 +63,20 @@ public class SanityLvl : MonoBehaviour
                 monster.SetActive(true);     
             }
             blockStairs.SetActive(true);
+
+            // Change Mother and House color to red
+            house.GetComponent<SpriteRenderer>().color = new Color(0.5f,0.036f,0.036f);
+            mother.GetComponent<SpriteRenderer>().color = new Color(0.5f,0.036f,0.036f);
         }
 
         // Sanity at 25%
         // Street lamps start flickering
         if (sanityLvl <=25) {
-                // Lights
-                lightsArray = GameObject.FindGameObjectsWithTag ("Light");
-                 foreach(GameObject light in lightsArray)
-                {
-                    light.GetComponent<LightFlickering>().enabled = true;
+            // Lights
+            lightsArray = GameObject.FindGameObjectsWithTag ("Light");
+                foreach(GameObject light in lightsArray)
+            {
+                light.GetComponent<LightFlickering>().enabled = true;
                 }
         }
 
@@ -98,31 +103,31 @@ public class SanityLvl : MonoBehaviour
         
     }
 
-    // public void regainSanity() {
-    //     // sanityLvl+=value;
-    //     // fillBar.fillAmount = sanityLvl/100;
-    //     lightPower = GameObject.Find("LightPower");
-    //     lightPower.GetComponent<Light>().color =  new Color(0.8f,0.5f,0.07f);
-    // }
-
+    // Resets the state of the game to normal
     public void resetNormal() {
-                // Reset PP
+        // Reset PP
         var postProcessVolume = GameObject.FindObjectOfType<UnityEngine.Rendering.PostProcessing.PostProcessVolume>();
         Vignette bloom = postProcessVolume.profile.GetSetting<UnityEngine.Rendering.PostProcessing.Vignette>();
         var colorParameter = new UnityEngine.Rendering.PostProcessing.ColorParameter();
         colorParameter.value = new Color(0.06172125f, 0.06631926f, 0.1792453f);
         bloom.color.Override(colorParameter);
 
+        // Monsters
         foreach(GameObject monster in monsterArray)
         {
             monster.SetActive(false);
             monsterTrigger.gameObject.SetActive(false);
         }
+
         // Lights
         lightsArray = GameObject.FindGameObjectsWithTag ("Light");
         foreach(GameObject light in lightsArray)
         {
             light.GetComponent<LightFlickering>().enabled = false;
         }
+
+        // Mom and house color back to normal
+        mother.GetComponent<SpriteRenderer>().color = new Color(0.66f,0.63f,0.77f);
+        house.GetComponent<SpriteRenderer>().color = new Color(0.37f,0.37f,0.37f);
     } 
 }
