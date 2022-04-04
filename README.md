@@ -33,6 +33,14 @@ Here are some suggestions made by playtesters:
 - More interaction
 - Complete storyline
 
+Here are the changes I decided to implement:
+- Bigger map & UI
+- Regaining sanity under certain conditions
+- Completed storyline
+- Multiple endings
+- More interactions 
+- Menu screen
+
 ---
 
 # Prototype 03 (Original)
