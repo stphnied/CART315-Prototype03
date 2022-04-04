@@ -20,6 +20,19 @@ My preceding prototype consisted of working around visual and sound effects to c
 5. Any comments or recommendations to improve my game? :>
 
 
+**Feedback & Reflection**
+
+For the iterative prototype, I allowed the player to feel a sense of agency by giving them options in the gameplay. From my playtest, I was able to learn that most playtesters wanted to be able to juggle between being sane and insane.Being able to achieve things depending on your current state is something they wanted to see and experience. Therefore, I believe I should slightly change the way I approach my game. Thankfully, the narrative of the game was understood by all my playtesters and they were able to grasp the general story of the game. The pacing of the game seems to be just right and I think for the final version, I will be focusing on expanding the map, completing the storyline and balancing the gameplay from the player’s sanity. One issue that players kept encountering was a bug (or more like a forgot to add) feature where the player’s movement would be frozen after selecting a dialogue option. I have since fixed it! 
+
+Here are some suggestions made by playtesters:
+- Bigger text and button
+- Random monster voices
+- Monsters following you
+- Brighter Map
+- Move camera angle
+- More interaction
+- Complete storyline
+
 ---
 
 # Prototype 03 (Original)
